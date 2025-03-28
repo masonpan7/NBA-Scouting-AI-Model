@@ -32,20 +32,12 @@ df.reset_index(drop=True, inplace=True)
 df = df.sort_values(by=['Player', 'Year'], ascending=[True, True])
 df = df.reset_index(drop=True)
 
+# Add BPM and VORP to the features list
 features = [
     "Year", "Player", "Pos", "Age", "G", "MP", "PER", "TS%", "WS", "WS/48", "3PAr", "FTr", "USG%",
-    "FGA", "FG%", "TRB", "AST", "STL", "BLK", "TOV", "PTS"
+    "FGA", "FG%", "TRB", "AST", "STL", "BLK", "TOV", "PTS", "BPM", "VORP"
 ]
 df = df[features]
-
-# Calculate per-game statistics
-df['MP/G'] = df['MP'] / df['G']
-df['TRB/G'] = df['TRB'] / df['G']
-df['AST/G'] = df['AST'] / df['G']
-df['STL/G'] = df['STL'] / df['G']
-df['BLK/G'] = df['BLK'] / df['G']
-df['TOV/G'] = df['TOV'] / df['G']
-df['PTS/G'] = df['PTS'] / df['G']
 
 # Group by Player and Year, summing the statistics
 df_grouped = df.groupby(['Player', 'Year']).agg({
@@ -66,7 +58,9 @@ df_grouped = df.groupby(['Player', 'Year']).agg({
     'TOV': 'sum',
     'PTS': 'sum',
     'USG%': 'mean',  # Averaging USG%
-    '3PAr': 'mean'  # Averaging 3PAr
+    '3PAr': 'mean',  # Averaging 3PAr
+    'BPM': 'mean',  # Averaging BPM
+    'VORP': 'mean'  # Averaging VORP
 }).reset_index()
 
 # Calculate per-game statistics after grouping
@@ -77,6 +71,10 @@ df_grouped['STL/G'] = (df_grouped['STL'] / df_grouped['G']).round(2)
 df_grouped['BLK/G'] = (df_grouped['BLK'] / df_grouped['G']).round(2)
 df_grouped['TOV/G'] = (df_grouped['TOV'] / df_grouped['G']).round(2)
 df_grouped['PTS/G'] = (df_grouped['PTS'] / df_grouped['G']).round(2)
+
+# Round BPM and VORP to two decimal places
+df_grouped['BPM'] = df_grouped['BPM'].round(2)
+df_grouped['VORP'] = df_grouped['VORP'].round(2)
 
 # Round per-game statistics to the second decimal place and remove trailing zeros
 df_grouped['MP/G'] = df_grouped['MP/G'].round(2).apply(lambda x: '{:.2f}'.format(x).rstrip('0').rstrip('.'))
