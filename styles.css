@@ -1,0 +1,123 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a); /* Dark sleek background */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Header Section */
+header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header .header-content h1 {
+    font-size: 36px;
+    color: #ff8f00;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+header .header-content p {
+    font-size: 16px;
+    color: #bbb;
+    margin-top: 5px;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px;
+    background: #222222;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Sections */
+.form-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-section h2 {
+    font-size: 20px;
+    color: #ff8f00;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Input Fields */
+label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    display: block;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 98%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #444;
+    color: #fff;
+    box-shadow: inset 0 2px 5px rgba(255, 143, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+    outline: none;
+    background-color: #555;
+    box-shadow: 0 0 8px rgba(255, 143, 0, 0.6);
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ff8f00, #ff6f00);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 143, 0, 0.3);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ff6f00, #ff8f00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 143, 0, 0.5);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+}
