@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Scouting AI - Breakout Predictor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-content">
+            <h1>NBA Scouting AI</h1>
+            <p>Predicting breakout seasons with advanced analytics</p>
+        </div>
+    </header>
+    <!-- Main Content Section -->
+    <div class="container">
+        <form id="form">
+            <!-- General Information -->
+             <div class="form-section">
+                <h2>General Information</h2>
+                
+                <div class="form-group">
+                    <label for="name">Player Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" step="0.01" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="is_first_year">Is First Year (1 if yes, 0 if):</label>
+                    <input type="number" id="is_first_year" name="is_first_year" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="g">Games Played (G):</label>
+                    <input type="number" id="g" name="g" step="0.01" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                 <!-- Performance Metrics -->
+                <h2>Performance Metrics</h2>
+
+                <div class="form-group">
+                    <label for="mp">Minutes Played (MP):</label>
+                    <input type="number" id="mp" name="mp" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mpg">Minutes Per Game (MP/G):</label>
+                    <input type="number" id="mpg" name="mpg" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="usg">Usage Percentage (USG%):</label>
+                    <input type="number" id="usg" name="usg" step="0.01" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="ts">True Shooting Percentage (TS%):</label>
+                    <input type="number" id="ts" name="ts" step="0.01" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="fga">Field Goal Attempts (FGA):</label>
+                    <input type="number" id="fga" name="fga" step="0.01" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="fg">Field Goal Percentage (FG%):</label>
+                    <input type="number" id="fg" name="fg" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="trb">Total Rebounds (TRB):</label>
+                    <input type="number" id="trb" name="trb" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="trb_change">Total Rebounds Per Game Change:</label>
+                    <input type="number" id="trb_change" name="trb_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ast">Total Assists (AST):</label>
+                    <input type="number" id="ast" name="ast" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ast_g">Assists Per Game (AST/G):</label>
+                    <input type="number" id="ast_g" name="ast_g" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pts">Total Points (PTS):</label>
+                    <input type="number" id="pts" name="pts" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pts_g">Points Per Game (PTS/G):</label>
+                    <input type="number" id="pts_g" name="pts_g" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ws">Win Shares (WS):</label>
+                    <input type="number" id="ws" name="ws" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ws_48">Win Shares Per 48 Minutes (WS/48):</label>
+                    <input type="number" id="ws_48" name="ws_48" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bpm">Box Plus/Minus (BPM):</label>
+                    <input type="number" id="bpm" name="bpm" step="0.01" required>
+                </div>  
+
+                <div class="form-group">
+                    <label for="vorp">Value Over Replacement Player (VORP):</label>
+                    <input type="number" id="vorp" name="vorp" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="3par">Three-Point Attempt Rate (3PAr):</label>
+                    <input type="number" id="3par" name="3par" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="stl_g">Steals Per Game (STL/G):</label>
+                    <input type="number" id="stl_g" name="stl_g" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tov">Total Turnovers (TOV):</label>
+                    <input type="number" id="tov" name="tov" step="0.01" required>
+                </div> 
+
+                <div class="form-group">
+                    <label for="tov_g">Turnovers Per Game (TOV/G):</label>
+                    <input type="number" id="tov_g" name="tov_g" step="0.01" required>
+                </div>
+            </div>
+
+
+            <div class="form-section">
+                <!-- Change in Metrics -->
+                <h2>Change in Metrics</h2>
+
+                <div class="form-group">
+                    <label for="mpg_change">MP/G Change:</label>
+                    <input type="number" id="mpg_change" name="mpg_change" step="0.01" required>
+                </div>  
+
+                <div class="form-group">
+                    <label for="trb_change">Total Rebounds Per Game Change:</label>
+                    <input type="number" id="trb_change" name="trb_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ast_change">Assists Per Game Change:</label>
+                    <input type="number" id="ast_change" name="ast_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pts_g_change">Points Per Game Change:</label>
+                    <input type="number" id="pts_g_change" name="pts_g_change" step="0.01" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="ws_change">Win Shares Change:</label>
+                    <input type="number" id="ws_change" name="ws_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ws_48_change">Change in WS Per 48 Minutes (WS/48):</label>
+                    <input type="number" id="ws_48_change" name="ws_48_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="per_change">PER Change:</label>
+                    <input type="number" id="per_change" name="per_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="stl_change">Steals Per Game Change:</label>
+                    <input type="number" id="stl_change" name="stl_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="usg_change">USG% Change:</label>
+                    <input type="number" id="usg_change" name="usg_change" step="0.01" required>
+                </div>  
+
+                <div class="form-group">
+                    <label for="ts_change">TS% Change:</label>
+                    <input type="number" id="ts_change" name="ts_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fg_change">FG% Change:</label>
+                    <input type="number" id="fg_change" name="fg_change" step="0.01" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="tovg_change">Change in Turnovers Per Game (TOV/G):</label>
+                    <input type="number" id="tovg_change" name="tovg_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="3pa_g_change">3 Points Attemted per Game Change:</label>
+                    <input type="number" id="3pa_g_change" name="3pa_g_change" step="0.01" required>
+                </div>  
+
+                <div class="form-group">
+                    <label for="blk_change">Change in Blocks (BLK):</label>
+                    <input type="number" id="blk_change" name="blk_change" step="0.01" required>
+                </div>
+            </div>
+
+            <button type="submit">Predict Breakout</button>
+        </form>
+    </div>
+
+    <p id="result"></p>
+    <footer>
+        <p>Powered by NBA Scouting AI</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
