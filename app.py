@@ -8,7 +8,7 @@ app = FastAPI()
 
 model = pickle.load(open('model.pkl', 'rb'))
 
-class Prediction Input(BaseModel):
+class PredictionInput(BaseModel):
     name: str
     year: float
     age: float
