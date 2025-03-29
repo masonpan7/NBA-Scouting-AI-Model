@@ -4,6 +4,7 @@ from sklearn.metrics import make_scorer, precision_score, recall_score, f1_score
 from xgboost.sklearn import XGBClassifier
 from sklearn.metrics import precision_recall_curve
 from sklearn.model_selection import GridSearchCV
+import pickle
 
 import numpy as np
 import pandas as pd
@@ -157,3 +158,6 @@ def tune_hyperparameters(X_train, y_train):
 
 # Example usage (assuming X_train, y_train are your data):
 # best_f1_params = tune_hyperparameters(X_train, y_train)
+
+with open('model.pkl', 'wb') as f:
+    pickle.dump(model, file)
