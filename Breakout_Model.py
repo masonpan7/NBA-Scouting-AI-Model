@@ -160,4 +160,4 @@ def tune_hyperparameters(X_train, y_train):
 # best_f1_params = tune_hyperparameters(X_train, y_train)
 
 with open('model.pkl', 'wb') as f:
-    pickle.dump(model, file)
+    pickle.dump(model, f)
