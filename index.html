@@ -44,6 +44,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="pos">Position</label>
+                    <input type="text" id="pos" name="pos" required>
+                </div>
+
+                <div class="form-group">
                     <label for="g">Games Played (G):</label>
                     <input type="number" id="g" name="g" step="0.01" required>
                 </div>
@@ -89,8 +94,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="trb_change">Total Rebounds Per Game Change:</label>
-                    <input type="number" id="trb_change" name="trb_change" step="0.01" required>
+                    <label for="trb_g">Total Rebounds Per Game:</label>
+                    <input type="number" id="trb_g" name="trb_g" step="0.01" required>
                 </div>
 
                 <div class="form-group">
@@ -139,6 +144,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="stl">Steals:</label>
+                    <input type="number" id="stl" name="stl" step="0.01" required>
+                </div>
+
+                <div class="form-group">
                     <label for="stl_g">Steals Per Game (STL/G):</label>
                     <input type="number" id="stl_g" name="stl_g" step="0.01" required>
                 </div>
@@ -152,6 +162,8 @@
                     <label for="tov_g">Turnovers Per Game (TOV/G):</label>
                     <input type="number" id="tov_g" name="tov_g" step="0.01" required>
                 </div>
+
+
             </div>
 
 
@@ -172,6 +184,11 @@
                 <div class="form-group">
                     <label for="ast_change">Assists Per Game Change:</label>
                     <input type="number" id="ast_change" name="ast_change" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="trb_change">Total Rebounds Per Game Change:</label>
+                    <input type="number" id="trb_change" name="trb_change" step="0.01" required>
                 </div>
 
                 <div class="form-group">
@@ -230,7 +247,7 @@
                 </div>
             </div>
 
-            <button type="submit">Predict Breakout</button>
+            <button type="submit" onclick="submitForm()">Predict Breakout</button>
         </form>
     </div>
 
@@ -239,6 +256,62 @@
         <p>Powered by NBA Scouting AI</p>
     </footer>
 
-    <script src="script.js" defer></script>
+    <script>
+        async function submitForm() {
+            // Collect all form inputs
+            const formData = {
+                name: document.getElementById("name").value,
+                year: parseFloat(document.getElementById("year").value),
+                age: parseFloat(document.getElementById("age").value),
+                is_first_year: parseFloat(document.getElementById("is_first_year").value),
+                g: parseFloat(document.getElementById("g").value),
+                mp: parseFloat(document.getElementById("mp").value),
+                mpg: parseFloat(document.getElementById("mpg").value),
+                usg: parseFloat(document.getElementById("usg").value),
+                ts: parseFloat(document.getElementById("ts").value),
+                fga: parseFloat(document.getElementById("fga").value),
+                fg: parseFloat(document.getElementById("fg").value),
+                trb: parseFloat(document.getElementById("trb").value),
+                trb_change: parseFloat(document.getElementById("trb_change").value),
+                ast: parseFloat(document.getElementById("ast").value),
+                ast_g: parseFloat(document.getElementById("ast_g").value),
+                pts: parseFloat(document.getElementById("pts").value),
+                pts_g: parseFloat(document.getElementById("pts_g").value),
+                ws: parseFloat(document.getElementById("ws").value),
+                ws_48: parseFloat(document.getElementById("ws_48").value),
+                bpm: parseFloat(document.getElementById("bpm").value),
+                vorp: parseFloat(document.getElementById("vorp").value),
+                threepar: parseFloat(document.getElementById("3par").value),
+                stl_g: parseFloat(document.getElementById("stl_g").value),
+                tov: parseFloat(document.getElementById("tov").value),
+                tov_g: parseFloat(document.getElementById("tov_g").value),
+                mpg_change: parseFloat(document.getElementById("mpg_change").value),
+                ast_change: parseFloat(document.getElementById("ast_change").value),
+                pts_g_change: parseFloat(document.getElementById("pts_g_change").value),
+                ws_change: parseFloat(document.getElementById("ws_change").value),
+                ws_48_change: parseFloat(document.getElementById("ws_48_change").value),
+                per_change: parseFloat(document.getElementById("per_change").value),
+                stl_change: parseFloat(document.getElementById("stl_change").value),
+                usg_change: parseFloat(document.getElementById("usg_change").value),
+                ts_change: parseFloat(document.getElementById("ts_change").value),
+                fg_change: parseFloat(document.getElementById("fg_change").value),
+                tovg_change: parseFloat(document.getElementById("tovg_change").value),
+                threepa_g_change: parseFloat(document.getElementById("3pa_g_change").value),
+                blk_change: parseFloat(document.getElementById("blk_change").value)
+            };
+    
+            // Send data to the FastAPI backend
+            const response = await fetch("http://127.0.0.1:8000/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            const result = await response.json();
+            document.getElementById("result").innerText = `Predicted Probability: ${result.probability}`;
+        }
+    </script>
 </body>
 </html>
