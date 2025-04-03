@@ -177,11 +177,6 @@
                 </div>  
 
                 <div class="form-group">
-                    <label for="trb_change">Total Rebounds Per Game Change:</label>
-                    <input type="number" id="trb_change" name="trb_change" step="0.01" required>
-                </div>
-
-                <div class="form-group">
                     <label for="ast_change">Assists Per Game Change:</label>
                     <input type="number" id="ast_change" name="ast_change" step="0.01" required>
                 </div>
@@ -237,8 +232,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="3pa_g_change">3 Points Attemted per Game Change:</label>
-                    <input type="number" id="3pa_g_change" name="3pa_g_change" step="0.01" required>
+                    <label for="threepa_g_change">3 Points Attemted per Game Change:</label>
+                    <input type="number" id="threepa_g_change" name="threepa_g_change" step="0.01" required>
                 </div>  
 
                 <div class="form-group">
@@ -262,8 +257,9 @@
             const formData = {
                 name: document.getElementById("name").value,
                 year: parseFloat(document.getElementById("year").value),
-                age: parseFloat(document.getElementById("age").value),
+                age: parseInt(document.getElementById("age").value),
                 is_first_year: parseFloat(document.getElementById("is_first_year").value),
+                pos: document.getElementById("pos").value,
                 g: parseFloat(document.getElementById("g").value),
                 mp: parseFloat(document.getElementById("mp").value),
                 mpg: parseFloat(document.getElementById("mpg").value),
@@ -282,10 +278,12 @@
                 bpm: parseFloat(document.getElementById("bpm").value),
                 vorp: parseFloat(document.getElementById("vorp").value),
                 threepar: parseFloat(document.getElementById("3par").value),
+                stl: parseFloat(document.getElementById("stl").value),
                 stl_g: parseFloat(document.getElementById("stl_g").value),
                 tov: parseFloat(document.getElementById("tov").value),
                 tov_g: parseFloat(document.getElementById("tov_g").value),
                 mpg_change: parseFloat(document.getElementById("mpg_change").value),
+                trb_change: parseFloat(document.getElementById("trb_change").value),
                 ast_change: parseFloat(document.getElementById("ast_change").value),
                 pts_g_change: parseFloat(document.getElementById("pts_g_change").value),
                 ws_change: parseFloat(document.getElementById("ws_change").value),
@@ -300,17 +298,25 @@
                 blk_change: parseFloat(document.getElementById("blk_change").value)
             };
     
-            // Send data to the FastAPI backend
+            try {
+            // Send the data to the backend
             const response = await fetch("http://127.0.0.1:8000/predict", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formData)
             });
-    
-            const result = await response.json();
-            document.getElementById("result").innerText = `Predicted Probability: ${result.probability}`;
+
+                // Parse the response
+                const result = await response.json();
+
+                // Display the result on the screen
+                document.getElementById("result").innerText = JSON.stringify(result);
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("result").innerText = "An error occurred. Please try again.";
+        }
         }
     </script>
 </body>
