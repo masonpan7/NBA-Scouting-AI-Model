@@ -246,7 +246,7 @@ def predict(input: PredictionInput):
 
         # Make prediction
         probability = model.predict_proba(df_features)[:, 1]
-        probability = float(probability[0])
+        probability = round((float(probability[0]) * 100), 2)
 
         # Return result
         return {
