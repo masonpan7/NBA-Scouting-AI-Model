@@ -273,8 +273,16 @@ def predict(input: PredictionInput):
         # Return enhanced result
         # Return enhanced result as plain text
         return (
-            f"{input.name} ({input.pos}) has a {probability}% chance of having a breakout season next year."
-        )
+            f"{input.name} ({input.pos}) has a {probability}% chance of having a breakout season next year.<br>"
+            f"Confidence Level: {confidence.capitalize()}<br><br>"
+            f"Details:<br>"
+            f"  - Position: {input.pos}<br>"
+            f"  - Year: {input.year}<br>"
+            f"  - Age: {input.age}<br><br>"
+            f"Key Metrics:<br>"
+            f"      - Points Per Game Change: {input.pts_g_change}<br>"
+            f"      - Win Shares Change: {input.ws_change}<br>"
+            f"      - Usage Rate Change: {input.usg_change}<br>"        )
     except Exception as e:
         print(f"Error: {e}")
         return {"error": "An internal error occurred. Please check the server logs."}
