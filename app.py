@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from sklearn.preprocessing import StandardScaler
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
 import numpy as np
@@ -8,6 +9,7 @@ import pandas as pd
 app = FastAPI()
 
 model = pickle.load(open('model.pkl', 'rb'))
+scaler = pickle.load(open('scaler.pkl', 'rb'))
 
 class PredictionInput(BaseModel):
     name: str
@@ -234,24 +236,46 @@ def predict(input: PredictionInput):
 
                 if criteria_met >= 4:
                     df.loc[i, 'breakout'] = 1
+                
 
             return df
 
         df_features = define_breakout(features)
         df_features = df_features.drop(columns=['Pos'])
 
-        # Ensure column order matches the model's feature names
+        # Define the model features
         model_features = model.get_booster().feature_names
         df_features = df_features[model_features]
+
+        # Standardize the data
+        df_features = pd.DataFrame(scaler.transform(df_features), columns=model_features)
+
+        # Weight important features
+        weighted_features = ['MP/G_change', 'USG%_change', 'PTS/G_change', 'WS/48_change', 'G', 'BPM']
+        for feature in weighted_features:
+            df_features[feature] *= 2
+
 
         # Make prediction
         probability = model.predict_proba(df_features)[:, 1]
         probability = round((float(probability[0]) * 100), 2)
 
         # Return result
-        return {
-            f"{input.name}'s probability of having a breakout season next year": probability
-        }
+        # Add confidence level
+        if probability >= 75:
+            confidence = "high"
+        elif probability >= 50:
+            confidence = "moderate"
+        else:
+            confidence = "low"
+
+
+        # Return enhanced result
+        # Return enhanced result as plain text
+        return (
+            f"{input.name} ({input.pos}) has a {probability}% chance of having a breakout season next year."
+        )
     except Exception as e:
         print(f"Error: {e}")
         return {"error": "An internal error occurred. Please check the server logs."}
+    
