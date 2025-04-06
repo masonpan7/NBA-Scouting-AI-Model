@@ -1,70 +1,38 @@
-🏀 NBA Scouting AI Model
-This project leverages machine learning and FastAPI to predict potential breakout NBA players based on historical player statistics. It includes data preprocessing, model training, and a web interface for making predictions.
+# 🏀 NBA Scouting AI Model
 
-🚀 Features
-Cleans and preprocesses raw player data
+This project uses a machine learning model with a FastAPI backend to predict potential NBA breakout players based on historical statistics.
 
-Trains a machine learning model to predict breakout potential
+## 📌 How It Works
 
-Fast, asynchronous API built with FastAPI
+- **Data Source**: `Seasons_Stats.csv` contains NBA player stats from past seasons.
+- **Preprocessing**: The data is cleaned and formatted using `Data_Preprocessing.py`.
+- **Model Training**: A `RandomForestClassifier` is trained in `Breakout_Model.py` and saved using `joblib`.
+- **Prediction API**: The `app.py` file runs a FastAPI server to handle user input and return predictions.
+- **Frontend**: `index.html` + `styles.css` provide a simple form UI that submits data to the API.
 
-Web frontend for easy interaction
+## 🛠 Technologies Used
 
-Interactive prediction interface styled with HTML/CSS
+- Python
+- FastAPI
+- Scikit-learn
+- Pandas
+- HTML/CSS (vanilla)
+- Uvicorn (for running the API)
 
-📁 Project Structure
-graphql
-Copy
-Edit
-NBA-Scouting-AI-Model/
-├── Breakout_Model.py         # ML model training script
-├── Data_Preprocessing.py     # Cleans and preprocesses raw data
-├── Seasons_Stats.csv         # Raw NBA player data
-├── player_data.csv           # Processed data
-├── model.pkl                 # Trained ML model
-├── scaler.pkl                # StandardScaler object
-├── app.py                    # FastAPI backend
-├── index.html                # Frontend UI
-├── styles.css                # Web UI styling
-⚙️ Installation
-bash
-Copy
-Edit
-git clone https://github.com/masonpan7/NBA-Scouting-AI-Model.git
-cd NBA-Scouting-AI-Model
-pip install -r requirements.txt
-uvicorn app:app --reload
-Then go to http://127.0.0.1:8000 in your browser.
+## 🚀 To Run Locally
 
-You can also explore the FastAPI Swagger docs at:
+1. Install dependencies:
+    ```
+    pip install fastapi uvicorn pandas scikit-learn python-multipart jinja2
+    ```
 
-arduino
-Copy
-Edit
-http://127.0.0.1:8000/docs
-🧠 How It Works
-Data_Preprocessing.py loads and cleans raw NBA player stats.
+2. Start the API server:
+    ```
+    uvicorn app:app --reload
+    ```
 
-Breakout_Model.py trains a RandomForestClassifier to identify potential breakout players.
+3. Open `index.html` in your browser to interact with the model.
 
-The model and scaler are saved as .pkl files for inference.
+---
 
-app.py hosts the FastAPI server and loads the model to serve predictions.
-
-The frontend form (HTML/CSS) allows users to input player stats and receive a prediction.
-
-📈 Input Features
-Points per Game
-
-Minutes Played
-
-Assists
-
-Rebounds
-
-Shooting Percentages (FG, 3PT, FT)
-
-Other key advanced stats
-
-🔮 Prediction Output
-The app predicts whether a player is likely to "Break Out" or not in their upcoming season based on input stats.
+Created by [@masonpan7](https://github.com/masonpan7)
