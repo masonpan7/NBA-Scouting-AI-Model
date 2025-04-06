@@ -41,6 +41,10 @@ scaler = StandardScaler()
 X_train = pd.DataFrame(scaler.fit_transform(X_train), columns=features)  # Convert back to DataFrame
 X_test = pd.DataFrame(scaler.transform(X_test), columns=features)
 
+# Save the fitted scaler
+with open('scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
+
 weighted_features = ['MP/G_change', 'USG%_change', 'PTS/G_change', 'WS/48_change', 'G', 'BPM']
 
 for feature in weighted_features:
