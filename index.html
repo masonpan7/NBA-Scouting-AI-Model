@@ -246,7 +246,9 @@
         </form>
     </div>
 
-    <p id="result"></p>
+    <div id="output" style="text-align: center; width: 50%; margin: 0 auto;">
+        <div id="result" style="font-size: 16px; line-height: 1.5; padding: 10px; border-radius: 5px; display: none;"></div>
+    </div>
     <footer>
         <p>Powered by NBA Scouting AI</p>
     </footer>
@@ -301,50 +303,6 @@
                 threepa_g_change: parseFloat(document.getElementById("threepa_g_change").value),
                 blk_change: parseFloat(document.getElementById("blk_change").value)
             };
-
-            test1 = {
-                "name": "A.J. Price",
-                "year": 2010,
-                "age": 23,
-                "is_first_year": 1,
-                "pos": "PG",
-                "g": 56,
-                "mp": 900,
-                "mpg": 16.1,
-                "usg": 22.5,
-                "ts": 0.51,
-                "fga": 7.0,
-                "fg": 0.40,
-                "trb": 80,
-                "trb_g": 1.4,
-                "ast": 150,
-                "ast_g": 2.7,
-                "pts": 450,
-                "pts_g": 8.0,
-                "ws": 0.5,
-                "ws_48": 0.03,
-                "bpm": -2.5,
-                "vorp": -0.3,
-                "threepar": 0.35,
-                "stl": 30,
-                "stl_g": 0.5,
-                "tov": 80,
-                "tov_g": 1.4,
-                "mpg_change": 0.0,
-                "trb_change": 0.0,
-                "ast_change": 0.0,
-                "pts_g_change": 0.0,
-                "ws_change": 0.0,
-                "ws_48_change": 0.0,
-                "per_change": 0.0,
-                "stl_change": 0.0,
-                "usg_change": 0.0,
-                "ts_change": 0.0,
-                "fg_change": 0.0,
-                "tovg_change": 0.0,
-                "threepa_g_change": 0.0,
-                "blk_change": 0.0
-            }
     
             try {
             // Send the data to the backend
@@ -357,10 +315,17 @@
             });
 
             const result = await response.text(); // Get plain text from the backend
-            document.getElementById("result").textContent = result; // Use textContent for <pre>
-            } catch (error) {
-                console.error("Error:", error);
-                document.getElementById("result").innerText = "An error occurred. Please try again.";
+                    // Display the result and add the border
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "block"; // Show the result box
+            resultDiv.style.border = "1px solid #ccc"; // Add the border
+            resultDiv.innerHTML = result; // Set the result text
+        } catch (error) {
+            console.error("Error:", error);
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "block"; // Show the result box
+            resultDiv.style.border = "1px solid #ccc"; // Add the border
+            resultDiv.innerText = "An error occurred. Please try again.";
         }
         }
     </script>
