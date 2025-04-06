@@ -6,7 +6,7 @@ This project uses a machine learning model with a FastAPI backend to predict pot
 
 - **Data Source**: `Seasons_Stats.csv` contains NBA player stats from past seasons.
 - **Preprocessing**: The data is cleaned and formatted using `Data_Preprocessing.py`.
-- **Model Training**: A `XGBoostClassifier` is trained in `Breakout_Model.py` and saved using `joblib`.
+- **Model Training**: A `XGBClassifier` is trained in `Breakout_Model.py` and saved using `joblib`.
 - **Prediction API**: The `app.py` file runs a FastAPI server to handle user input and return predictions.
 - **Frontend**: `index.html` + `styles.css` provide a simple form UI that submits data to the API.
 
