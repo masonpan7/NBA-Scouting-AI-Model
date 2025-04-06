@@ -139,8 +139,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="3par">Three-Point Attempt Rate (3PAr):</label>
-                    <input type="number" id="3par" name="3par" step="0.01" required>
+                    <label for="threepar">Three-Point Attempt Rate (3PAr):</label>
+                    <input type="number" id="threepar" name="threepar" step="0.01" required>
                 </div>
 
                 <div class="form-group">
@@ -242,7 +242,7 @@
                 </div>
             </div>
 
-            <button type="submit" onclick="submitForm()">Predict Breakout</button>
+            <button type="submit" onclick="submitForm(event)">Predict Breakout</button>
         </form>
     </div>
 
@@ -252,7 +252,11 @@
     </footer>
 
     <script>
-        async function submitForm() {
+        async function submitForm(event) {
+
+            // Prevent the default form submission
+            event.preventDefault();
+
             // Collect all form inputs
             const formData = {
                 name: document.getElementById("name").value,
@@ -268,7 +272,7 @@
                 fga: parseFloat(document.getElementById("fga").value),
                 fg: parseFloat(document.getElementById("fg").value),
                 trb: parseFloat(document.getElementById("trb").value),
-                trb_change: parseFloat(document.getElementById("trb_change").value),
+                trb_g: parseFloat(document.getElementById("trb_g").value),
                 ast: parseFloat(document.getElementById("ast").value),
                 ast_g: parseFloat(document.getElementById("ast_g").value),
                 pts: parseFloat(document.getElementById("pts").value),
@@ -277,7 +281,7 @@
                 ws_48: parseFloat(document.getElementById("ws_48").value),
                 bpm: parseFloat(document.getElementById("bpm").value),
                 vorp: parseFloat(document.getElementById("vorp").value),
-                threepar: parseFloat(document.getElementById("3par").value),
+                threepar: parseFloat(document.getElementById("threepar").value),
                 stl: parseFloat(document.getElementById("stl").value),
                 stl_g: parseFloat(document.getElementById("stl_g").value),
                 tov: parseFloat(document.getElementById("tov").value),
@@ -294,9 +298,53 @@
                 ts_change: parseFloat(document.getElementById("ts_change").value),
                 fg_change: parseFloat(document.getElementById("fg_change").value),
                 tovg_change: parseFloat(document.getElementById("tovg_change").value),
-                threepa_g_change: parseFloat(document.getElementById("3pa_g_change").value),
+                threepa_g_change: parseFloat(document.getElementById("threepa_g_change").value),
                 blk_change: parseFloat(document.getElementById("blk_change").value)
             };
+
+            test1 = {
+                "name": "A.J. Price",
+                "year": 2010,
+                "age": 23,
+                "is_first_year": 1,
+                "pos": "PG",
+                "g": 56,
+                "mp": 900,
+                "mpg": 16.1,
+                "usg": 22.5,
+                "ts": 0.51,
+                "fga": 7.0,
+                "fg": 0.40,
+                "trb": 80,
+                "trb_g": 1.4,
+                "ast": 150,
+                "ast_g": 2.7,
+                "pts": 450,
+                "pts_g": 8.0,
+                "ws": 0.5,
+                "ws_48": 0.03,
+                "bpm": -2.5,
+                "vorp": -0.3,
+                "threepar": 0.35,
+                "stl": 30,
+                "stl_g": 0.5,
+                "tov": 80,
+                "tov_g": 1.4,
+                "mpg_change": 0.0,
+                "trb_change": 0.0,
+                "ast_change": 0.0,
+                "pts_g_change": 0.0,
+                "ws_change": 0.0,
+                "ws_48_change": 0.0,
+                "per_change": 0.0,
+                "stl_change": 0.0,
+                "usg_change": 0.0,
+                "ts_change": 0.0,
+                "fg_change": 0.0,
+                "tovg_change": 0.0,
+                "threepa_g_change": 0.0,
+                "blk_change": 0.0
+            }
     
             try {
             // Send the data to the backend
@@ -308,11 +356,8 @@
                 body: JSON.stringify(formData)
             });
 
-                // Parse the response
-                const result = await response.json();
-
-                // Display the result on the screen
-                document.getElementById("result").innerText = JSON.stringify(result);
+            const result = await response.text(); // Get plain text from the backend
+            document.getElementById("result").textContent = result; // Use textContent for <pre>
             } catch (error) {
                 console.error("Error:", error);
                 document.getElementById("result").innerText = "An error occurred. Please try again.";
